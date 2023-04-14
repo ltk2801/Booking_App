@@ -1,0 +1,111 @@
+import React from "react";
+import styles from "./Featured.module.css";
+
+const Featured = () => {
+  return (
+    <React.Fragment>
+      <div className={styles.featuredFirst}>
+        {/* item 1 */}
+        <div className={styles.featuredItem}>
+          <img
+            src="https://img6.thuthuatphanmem.vn/uploads/2022/02/09/hinh-anh-thanh-pho-ho-chi-minh-ve-dem_031033761.jpg"
+            alt="aba"
+            className={styles.featuredImg}
+          />
+          <div className={styles.featuredTitles}>
+            <h2>TP. Hồ Chí Minh</h2>
+            <span>
+              {" "}
+              <img
+                src="https://investone-law.com/wp-content/uploads/2019/06/quoc-ky-viet-nam.jpg"
+                alt="cờ Việt Nam"
+                className={styles.flag}
+              />{" "}
+            </span>
+          </div>
+        </div>
+        {/* item 2 */}
+        <div className={styles.featuredItem}>
+          <img
+            src="https://vcdn1-dulich.vnecdn.net/2022/05/11/hoan-kiem-lake-7673-1613972680-1508-1652253984.jpg?w=0&h=0&q=100&dpr=1&fit=crop&s=2wB1cBTUcNKuk68nrG6LMQ"
+            alt="aba"
+            className={styles.featuredImg}
+          />
+          <div className={styles.featuredTitles}>
+            <h2>Hà Nội</h2>
+            <span>
+              {" "}
+              <img
+                src="https://investone-law.com/wp-content/uploads/2019/06/quoc-ky-viet-nam.jpg"
+                alt="cờ Việt Nam"
+                className={styles.flag}
+              />{" "}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.featuredSecond}>
+        {/* item 1 */}
+        <div className={styles.featuredItem}>
+          <img
+            src="https://cdn.tgdd.vn/Files/2022/02/16/1415816/10-bai-bien-da-nang-dep-say-long-nguoi-202202160903004409.jpg"
+            alt="aba"
+            className={styles.featuredImg}
+          />
+          <div className={styles.featuredTitles}>
+            <h2>Đà Nẵng</h2>
+            <span>
+              {" "}
+              <img
+                src="https://investone-law.com/wp-content/uploads/2019/06/quoc-ky-viet-nam.jpg"
+                alt="cờ Việt Nam"
+                className={styles.flag}
+              />{" "}
+            </span>
+          </div>
+        </div>
+        {/* item 2 */}
+        <div className={styles.featuredItem}>
+          <img
+            src="https://bloghomestay.vn/wp-content/uploads/2023/02/hinh-anh-vung-tau_1.jpg"
+            alt="aba"
+            className={styles.featuredImg}
+          />
+          <div className={styles.featuredTitles}>
+            <h2>Vũng Tàu</h2>
+            <span>
+              {" "}
+              <img
+                src="https://investone-law.com/wp-content/uploads/2019/06/quoc-ky-viet-nam.jpg"
+                alt="cờ Việt Nam"
+                className={styles.flag}
+              />{" "}
+            </span>
+          </div>
+        </div>
+        {/* item 3 */}
+        <div className={styles.featuredItem}>
+          <img
+            src="https://haycafe.vn/wp-content/uploads/2022/01/Hinh-nen-Da-Lat-4K.jpg"
+            alt="aba"
+            className={styles.featuredImg}
+          />
+          <div className={styles.featuredTitles}>
+            <h2>Đà Lạt</h2>
+            <span>
+              {" "}
+              <img
+                src="https://investone-law.com/wp-content/uploads/2019/06/quoc-ky-viet-nam.jpg"
+                alt="cờ Việt Nam"
+                className={styles.flag}
+              />{" "}
+            </span>
+          </div>
+        </div>
+      </div>
+    </React.Fragment>
+  );
+};
+
+export default Featured;

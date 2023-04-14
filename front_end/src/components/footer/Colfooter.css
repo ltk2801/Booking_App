@@ -1,0 +1,11 @@
+/* fListItem */
+li {
+  color: #003580;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+/* fList */
+ul {
+  list-style: none;
+  padding: 0;
+}

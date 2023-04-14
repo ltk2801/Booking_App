@@ -1,0 +1,59 @@
+[
+  {
+    "col_number": 1,
+    "col_values": [
+      "Các quốc gia",
+      "Khu vực",
+      "Thành phố",
+      "Quận",
+      "Khách sạn",
+      "Địa điểm được quan tâm"
+    ]
+  },
+  {
+    "col_number": 2,
+    "col_values": [
+      "Nhà",
+      "Căn hộ",
+      "Resort",
+      "Biệt thự",
+      "Nhà trọ",
+      "Nhà nghỉ B&B",
+      "Nhà khách"
+    ]
+  },
+  {
+    "col_number": 3,
+    "col_values": [
+      "Những chỗ nghỉ độc đáo",
+      "Tất cả các điểm đến",
+      "Tất cả các điểm đến có chuyến bay",
+      "Tất cả địa điểm cho thuê xe",
+      "Khám phá",
+      "Đánh giá của khách",
+      "Các bài viết"
+    ]
+  },
+  {
+    "col_number": 4,
+    "col_values": [
+      "Cho thuê xe hơi",
+      "Tìm chuyến bay",
+      "Đặt nhà hàng",
+      "Dành cho Đại Lý Du Lịch"
+    ]
+  },
+  {
+    "col_number": 5,
+    "col_values": [
+      "Dịch vụ khách hàng",
+      "Trợ giúp đối tác",
+      "Careers",
+      "Du lịch bền vững",
+      "Quan hệ cổ đông",
+      "Truyền thông",
+      "Điều khoản và điều kiện",
+      "Liên hệ công ty"
+    ]
+  }
+]
