@@ -4,12 +4,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./Navbar.module.css";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleHomePage = () => {
+    navigate("/");
+  };
   return (
     <div className={styles.navbar}>
       <div className={styles.navContainer}>
-        <h2 className={styles.logo}>Mikeybooking.com</h2>
+        <h2 className={styles.logo} onClick={handleHomePage}>
+          Mikeybooking.com
+        </h2>
         <div className={styles.navItems}>
           <div className={styles.navService}>
             <span className={styles.navItem}>VND</span>

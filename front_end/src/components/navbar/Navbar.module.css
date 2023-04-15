@@ -18,6 +18,10 @@
 .logo {
   font-weight: bold;
 }
+.logo:hover,
+.logo:active {
+  cursor: pointer;
+}
 
 .navButton {
   margin-left: 20px;
