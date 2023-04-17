@@ -6,11 +6,13 @@ const authRoute = require("./routes/auth");
 const roomsRoute = require("./routes/rooms");
 const hotelsRoute = require("./routes/hotels");
 const usersRoute = require("./routes/users");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 dotenv.config();
 
 // middlewares
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/v1/auth", authRoute);
