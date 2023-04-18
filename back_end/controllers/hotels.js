@@ -13,6 +13,24 @@ exports.getAllHotel = async (req, res, next) => {
   }
 };
 
+// Get hotels by city
+exports.countByCity = async (req, res, next) => {
+  const cities = req.query.cities.split(",");
+
+  try {
+    const list = await Promise.all(
+      cities.map((city) => {
+        return Hotel.countDocuments({ city: city });
+      })
+    );
+
+    res.status(200).json(list);
+  } catch (error) {
+    next(error);
+    // next(createError(401, "You are not authenticated !"));
+  }
+};
+
 // Get hotel
 exports.getHotel = async (req, res, next) => {
   try {
