@@ -30,6 +30,7 @@
   flex-direction: column;
   gap: 5px;
   margin-bottom: 20px;
+  position: relative;
 }
 .listResult {
   flex: 3;
@@ -107,4 +108,10 @@
   cursor: pointer;
   background-color: #075791;
   color: white;
+}
+
+.date {
+  position: absolute;
+  top: 65px;
+  z-index: 2;
 }

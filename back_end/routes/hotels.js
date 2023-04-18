@@ -20,6 +20,6 @@ router.get("/find/:id", hotelsController.getHotel);
 //GET ALL
 router.get("/", hotelsController.getAllHotel);
 router.get("/countByCity", hotelsController.countByCity);
-router.get("/countByType", hotelsController.getAllHotel);
+router.get("/countByType", hotelsController.countByType);
 
 module.exports = router;

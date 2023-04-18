@@ -1,18 +1,17 @@
 import React from "react";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Featured.module.css";
+import Loading from "../Loading/Loading";
 
 const Featured = () => {
   const { data, loading, error, reFetch } = useFetch(
     "http://localhost:8800/api/v1/hotels/countByCity?cities=Thành phố Hồ Chí Minh,Hà Nội,Đà Nẵng,Vũng Tàu,Đà Lạt"
   );
 
-  console.log(data);
-
   return (
     <React.Fragment>
       {loading ? (
-        "Loading please wait"
+        <Loading />
       ) : (
         <>
           {" "}

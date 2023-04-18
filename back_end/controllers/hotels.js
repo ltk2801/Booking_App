@@ -31,6 +31,52 @@ exports.countByCity = async (req, res, next) => {
   }
 };
 
+// Get hotels by type
+exports.countByType = async (req, res, next) => {
+  try {
+    const khachsanCount = await Hotel.countDocuments({ type: "Khách sạn" });
+    const canhoCount = await Hotel.countDocuments({ type: "Căn hộ" });
+    const resortCount = await Hotel.countDocuments({ type: "Resort" });
+    const villaCount = await Hotel.countDocuments({ type: "Biệt thự" });
+    const nhanghithondaCount = await Hotel.countDocuments({
+      type: "Nhà nghỉ thôn dã",
+    });
+    const nhanghimatCount = await Hotel.countDocuments({
+      type: "Nhà nghỉ mát",
+    });
+
+    res.status(200).json([
+      {
+        type: "Khách sạn",
+        count: khachsanCount,
+      },
+      {
+        type: "Căn hộ",
+        count: canhoCount,
+      },
+      {
+        type: "Resort",
+        count: resortCount,
+      },
+      {
+        type: "Biệt thự",
+        count: villaCount,
+      },
+      {
+        type: "Nhà nghỉ thôn dã",
+        count: nhanghithondaCount,
+      },
+      {
+        type: "Nhà nghỉ mát",
+        count: nhanghimatCount,
+      },
+    ]);
+  } catch (error) {
+    next(error);
+    // next(createError(401, "You are not authenticated !"));
+  }
+};
+
 // Get hotel
 exports.getHotel = async (req, res, next) => {
   try {
