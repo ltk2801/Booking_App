@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import Footer from "../../components/footer/Footer";
+import useFetch from "../../hooks/useFetch";
 
 import {
   faCalendarDays,
@@ -14,18 +15,30 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchItem from "../../components/searchItem/SearchItem";
+import Loading from "../../components/Loading/Loading";
 
 function List() {
   const location = useLocation();
 
   const [destination, setDestination] = useState(location.state.destination);
-  const [date, setDate] = useState(location.state.date);
+  const [dates, setDates] = useState(location.state.dates);
   const [openDate, setOpenDate] = useState(false);
   const [options, setOptions] = useState(location.state.options);
-  console.log(setDestination, setOptions);
+  const [min, setMin] = useState(undefined);
+  const [max, setMax] = useState(undefined);
 
-  const timeDifference = date[0].endDate - date[0].startDate;
+  const timeDifference = dates[0].endDate - dates[0].startDate;
   const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+  const { data, loading, reFetch } = useFetch(
+    `http://localhost:8800/api/v1/hotels?city=${destination}&min=${
+      min || 0
+    }&max=${max || 999}`
+  );
+
+  const handleClick = () => {
+    reFetch();
+  };
 
   return (
     <div>
@@ -43,7 +56,11 @@ function List() {
                   icon={faMagnifyingGlass}
                   className={styles.lsIcon}
                 />
-                <input placeholder={destination} type="text" />
+                <input
+                  placeholder={destination}
+                  type="text"
+                  onChange={(e) => setDestination(e.target.value)}
+                />
               </div>
             </div>
             <div className={styles.lsItem}>
@@ -54,8 +71,8 @@ function List() {
                   className={styles.lsIcon}
                 />
                 <span onClick={() => setOpenDate(!openDate)}>
-                  {`${format(date[0].startDate, "dd/MM/yyyy")} to ${format(
-                    date[0].endDate,
+                  {`${format(dates[0].startDate, "dd/MM/yyyy")} to ${format(
+                    dates[0].endDate,
                     "dd/MM/yyyy"
                   )} `}
                 </span>
@@ -66,9 +83,9 @@ function List() {
               </div>
               {openDate && (
                 <DateRange
-                  onChange={(item) => setDate([item.selection])}
+                  onChange={(item) => setDates([item.selection])}
                   minDate={new Date()}
-                  ranges={date}
+                  ranges={dates}
                   className={styles.date}
                 />
               )}
@@ -76,6 +93,28 @@ function List() {
             <div className={styles.lsItem}>
               <label>Nghỉ {daysDifference} đêm</label>
               <div className={styles.options}>
+                <div className={styles.lsOptionItem}>
+                  <span className={styles.lsOptionText}>
+                    Giá thấp nhất ( $/ 1 ngày )
+                  </span>
+                  <input
+                    type="number"
+                    className={styles.lsOptionInput}
+                    min={1}
+                    onChange={(e) => setMin(e.target.value)}
+                  />
+                </div>
+                <div className={styles.lsOptionItem}>
+                  <span className={styles.lsOptionText}>
+                    Giá cao nhất ( $/ 1 ngày )
+                  </span>
+                  <input
+                    type="number"
+                    className={styles.lsOptionInput}
+                    min={1}
+                    onChange={(e) => setMax(e.target.value)}
+                  />
+                </div>
                 <div className={styles.lsOptionItem}>
                   <span className={styles.lsOptionText}>Người lớn</span>
                   <input
@@ -105,17 +144,18 @@ function List() {
                 </div>
               </div>
             </div>
-            <button>Tìm kiếm</button>
+            <button onClick={handleClick}>Tìm kiếm</button>
           </div>
           <div className={styles.listResult}>
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
+            {loading ? (
+              <Loading />
+            ) : (
+              <>
+                {data.map((item) => (
+                  <SearchItem item={item} key={item._id} />
+                ))}
+              </>
+            )}
           </div>
         </div>
       </div>

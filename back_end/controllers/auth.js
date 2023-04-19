@@ -17,7 +17,7 @@ exports.register = async (req, res, next) => {
     await newUser.save();
     res.status(201).json("User has been created.");
   } catch (error) {
-    next(error);
+    next(createError(404, "Email or Username has already !"));
   }
 };
 

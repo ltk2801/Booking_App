@@ -3,9 +3,15 @@ const { createError } = require("../utils/error");
 
 // Get Hotels
 exports.getAllHotel = async (req, res, next) => {
+  const { min, max, limit, ...others } = req.query;
+  let limiting = parseInt(limit);
+
   try {
-    // Tìm hotel theo params id
-    const hotels = await Hotel.find();
+    const hotels = await Hotel.find({
+      ...others,
+      cheapestPrice: { $gt: Number(min) - 1 || 1, $lt: Number(max) + 1 || 999 },
+    }).limit(limiting);
+
     res.status(200).json(hotels);
   } catch (error) {
     next(error);
@@ -41,6 +47,12 @@ exports.countByType = async (req, res, next) => {
     const nhanghithondaCount = await Hotel.countDocuments({
       type: "Nhà nghỉ thôn dã",
     });
+    const glampingCount = await Hotel.countDocuments({
+      type: "Glamping",
+    });
+    const khachsancanhoCount = await Hotel.countDocuments({
+      type: "Khách sạn căn hộ",
+    });
     const nhanghimatCount = await Hotel.countDocuments({
       type: "Nhà nghỉ mát",
     });
@@ -65,6 +77,14 @@ exports.countByType = async (req, res, next) => {
       {
         type: "Nhà nghỉ thôn dã",
         count: nhanghithondaCount,
+      },
+      {
+        type: "Glamping",
+        count: glampingCount,
+      },
+      {
+        type: "Khách sạn căn hộ",
+        count: khachsancanhoCount,
       },
       {
         type: "Nhà nghỉ mát",

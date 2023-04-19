@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const PropertyList = () => {
-  const { data, loading, error, reFetch } = useFetch(
+  const { data, loading } = useFetch(
     "http://localhost:8800/api/v1/hotels/countByType"
   );
 
@@ -35,8 +35,16 @@ const PropertyList = () => {
       index: 4,
     },
     {
-      src: "https://r-xx.bstatic.com/xdata/images/xphoto/263x210/45450113.jpeg?k=76b3780a0e4aacb9d02ac3569b05b3c5e85e0fd875287e9ac334e3b569f320c7&o=",
+      src: "https://r-xx.bstatic.com/xdata/images/xphoto/263x210/45450090.jpeg?k=52f6b8190edb5a9c91528f8e0f875752ce55a6beb35dc62873601e57944990e4&o=",
       index: 5,
+    },
+    {
+      src: "https://r-xx.bstatic.com/xdata/images/xphoto/263x210/45450058.jpeg?k=2449eb55e8269a66952858c80fd7bdec987f9514cd79d58685651b7d6e9cdfcf&o=",
+      index: 6,
+    },
+    {
+      src: "https://r-xx.bstatic.com/xdata/images/xphoto/263x210/45450113.jpeg?k=76b3780a0e4aacb9d02ac3569b05b3c5e85e0fd875287e9ac334e3b569f320c7&o=",
+      index: 7,
     },
   ];
 

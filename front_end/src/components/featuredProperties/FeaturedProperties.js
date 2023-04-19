@@ -1,75 +1,40 @@
 import styles from "./FeaturedProperties.module.css";
+import useFetch from "../../hooks/useFetch";
+import Loading from "../Loading/Loading";
 
 const FeaturedProperties = () => {
+  const { data, loading } = useFetch(
+    "http://localhost:8800/api/v1/hotels?featured=true&limit=4"
+  );
+
   return (
     <div className={styles.fp}>
-      <div className={styles.fpItem}>
-        <img
-          src="https://cf.bstatic.com/xdata/images/hotel/square600/13125860.webp?k=e148feeb802ac3d28d1391dad9e4cf1e12d9231f897d0b53ca067bde8a9d3355&o=&s=1"
-          alt=""
-          className={styles.fpImg}
-        />
-        <span className={styles.fpName}>ApartHotel Stare Miasto </span>
-        <span className={styles.fpCity}>Madrid </span>
-        <span className={styles.fpPrice}>
-          Bắt đầu từ <strong>VND 4.101.502</strong>{" "}
-        </span>
-        <div className={styles.fpRating}>
-          <button>8.9</button>
-          <span>Excellent</span>
-        </div>
-      </div>
-
-      <div className={styles.fpItem}>
-        <img
-          src="https://cf.bstatic.com/xdata/images/hotel/square600/13125860.webp?k=e148feeb802ac3d28d1391dad9e4cf1e12d9231f897d0b53ca067bde8a9d3355&o=&s=1"
-          alt=""
-          className={styles.fpImg}
-        />
-        <span className={styles.fpName}>ApartHotel Stare Miasto </span>
-        <span className={styles.fpCity}>Madrid </span>
-        <span className={styles.fpPrice}>
-          Bắt đầu từ VND <strong>VND 4.101.502</strong>
-        </span>
-        <div className={styles.fpRating}>
-          <button>8.9</button>
-          <span>Excellent</span>
-        </div>
-      </div>
-
-      <div className={styles.fpItem}>
-        <img
-          src="https://cf.bstatic.com/xdata/images/hotel/square600/13125860.webp?k=e148feeb802ac3d28d1391dad9e4cf1e12d9231f897d0b53ca067bde8a9d3355&o=&s=1"
-          alt=""
-          className={styles.fpImg}
-        />
-        <span className={styles.fpName}>ApartHotel Stare Miasto </span>
-        <span className={styles.fpCity}>Madrid </span>
-        <span className={styles.fpPrice}>
-          Bắt đầu từ <strong>VND 4.101.502</strong>{" "}
-        </span>
-        <div className={styles.fpRating}>
-          <button>8.9</button>
-          <span>Excellent</span>
-        </div>
-      </div>
-
-      <div className={styles.fpItem}>
-        <img
-          src="https://cf.bstatic.com/xdata/images/hotel/square600/13125860.webp?k=e148feeb802ac3d28d1391dad9e4cf1e12d9231f897d0b53ca067bde8a9d3355&o=&s=1"
-          alt=""
-          className={styles.fpImg}
-        />
-        <span className={styles.fpName}>ApartHotel Stare Miasto </span>
-        <span className={styles.fpCity}>Madrid </span>
-        <span className={styles.fpPrice}>
-          Bắt đầu từ <strong>VND 4.101.502</strong>{" "}
-        </span>
-        <div className={styles.fpRating}>
-          <button>8.9</button>
-          <span>Excellent</span>
-        </div>
-      </div>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {data.map((item) => (
+            <div className={styles.fpItem} key={item._id}>
+              <img
+                src={item.photos[0]}
+                alt={item._id}
+                className={styles.fpImg}
+              />
+              <span className={styles.fpName}>{item.name}</span>
+              <span className={styles.fpCity}>{item.city} </span>
+              <span className={styles.fpPrice}>
+                Bắt đầu từ <strong> ${item.cheapestPrice}</strong>{" "}
+              </span>
+              {item.rating && (
+                <div className={styles.fpRating}>
+                  <button>{item.rating}</button>
+                  <span>Excellent</span>
+                </div>
+              )}
+            </div>
+          ))}
+        </>
+      )}
     </div>
   );
 };
