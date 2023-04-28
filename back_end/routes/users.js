@@ -7,12 +7,12 @@ const usersControler = require("../controllers/users");
 const { verifyAdmin, verifyUser } = require("../utils/verifyToken.js");
 
 //UPDATE
-router.put("/:id", verifyUser, usersControler.updateUser);
+router.put("/:id", usersControler.updateUser);
 //DELETE
-router.delete("/:id", verifyUser, usersControler.deleteUser);
+router.delete("/:id", usersControler.deleteUser);
 //GET
-router.get("/:id", verifyUser, usersControler.getUser);
+router.get("/:id", usersControler.getUser);
 //GET ALL
-router.get("/", verifyAdmin, usersControler.getAllUser);
+router.get("/", usersControler.getAllUser);
 
 module.exports = router;
