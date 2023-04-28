@@ -28,7 +28,7 @@ function Hotel() {
   const { pathname } = useLocation();
   const id = pathname.split("/")[2];
 
-  const { data, loading, error } = useFetch(
+  const { data, loading } = useFetch(
     `http://localhost:8800/api/v1/hotels/find/${id}`
   );
   const { user } = useContext(AuthContext);

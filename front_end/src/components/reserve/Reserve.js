@@ -8,7 +8,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Reserve = ({ setOpen, hotelId }) => {
-  const { data, loading, error } = useFetch(
+  const { data } = useFetch(
     `http://localhost:8800/api/v1/hotels/room/${hotelId}`
   );
   // lưu danh sách phòng đã chọn vào state
