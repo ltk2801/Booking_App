@@ -6,16 +6,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./Navbar.module.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = ({ type }) => {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  // console.log(type);
+  const [isLoggedIn, setIsLoggedIn] = useState(user || null);
   const handleHomePage = () => {
     navigate("/");
   };
+  const logoutHandle = () => {
+    localStorage.removeItem("user");
+    setIsLoggedIn(null);
+    navigate("/");
+  };
+
   return (
     <div className={styles.navbar}>
       <div className={styles.navContainer}>
@@ -45,10 +51,12 @@ const Navbar = ({ type }) => {
               </span>
               <span className={styles.navItem}>Đăng chỗ nghỉ của Quý vị</span>
             </div>
-            {user ? (
+            {isLoggedIn ? (
               <div className={styles.user}>
                 <span>Xin chào {user.username}</span>
-                <button className={styles.navButton}>Đăng xuất</button>
+                <button className={styles.navButton} onClick={logoutHandle}>
+                  Đăng xuất
+                </button>
               </div>
             ) : (
               <>

@@ -1,4 +1,5 @@
 const Hotel = require("../models/Hotel");
+const Room = require("../models/Room");
 const { createError } = require("../utils/error");
 
 // Get Hotels
@@ -94,6 +95,22 @@ exports.countByType = async (req, res, next) => {
   } catch (error) {
     next(error);
     // next(createError(401, "You are not authenticated !"));
+  }
+};
+
+// Get hotels room
+exports.getHotelRooms = async (req, res, next) => {
+  try {
+    const hotel = await Hotel.findById(req.params.id);
+
+    const listRoom = await Promise.all(
+      hotel.rooms.map((room) => {
+        return Room.findById(room);
+      })
+    );
+    res.status(200).json(listRoom);
+  } catch (error) {
+    next(err);
   }
 };
 

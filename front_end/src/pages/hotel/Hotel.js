@@ -6,25 +6,33 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header";
 import Loading from "../../components/Loading/Loading";
 import Navbar from "../../components/navbar/Navbar";
+import Reserve from "../../components/reserve/Reserve";
+import { AuthContext } from "../../context/AuthContext";
 import { SearchContext } from "../../context/SearchContext";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Hotel.module.css";
 
 function Hotel() {
+  // Mở đóng modal hình ảnh phòng
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
+  // Mở đóng modal đặt phòng
+  const [openModal, setOpenModal] = useState(false);
 
+  // lấy ra id của hotel
   const { pathname } = useLocation();
   const id = pathname.split("/")[2];
 
   const { data, loading, error } = useFetch(
     `http://localhost:8800/api/v1/hotels/find/${id}`
   );
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const { dates, options } = useContext(SearchContext);
 
@@ -44,6 +52,14 @@ function Hotel() {
       newSlideNumber = slideNumber === 5 ? 0 : slideNumber + 1;
     }
     setSlideNumber(newSlideNumber);
+  };
+
+  const handleClick = () => {
+    if (user) {
+      setOpenModal(true);
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -129,12 +145,13 @@ function Hotel() {
                   <b>${daysDifference * data.cheapestPrice * options.room}</b> (
                   {daysDifference} nights)
                 </h2>
-                <button>Đặt ngay</button>
+                <button onClick={handleClick}>Đặt ngay</button>
               </div>
             </div>
           </div>
         </div>
       )}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}
       <Footer />
     </div>
   );

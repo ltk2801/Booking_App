@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import styles from "./List.module.css";
@@ -16,6 +16,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchItem from "../../components/searchItem/SearchItem";
 import Loading from "../../components/Loading/Loading";
+import { SearchContext } from "../../context/SearchContext";
 
 function List() {
   const location = useLocation();
@@ -35,9 +36,11 @@ function List() {
       min || 0
     }&max=${max || 999}`
   );
-
+  // Sử dụng dispatch
+  const { dispatch } = useContext(SearchContext);
   const handleClick = () => {
     reFetch();
+    dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
   };
 
   return (
@@ -87,6 +90,8 @@ function List() {
                   minDate={new Date()}
                   ranges={dates}
                   className={styles.date}
+                  editableDateInputs={true}
+                  // moveRangeOnFirstSelection={false}
                 />
               )}
             </div>

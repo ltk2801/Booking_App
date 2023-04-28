@@ -6,8 +6,12 @@ import Hotel from "./pages/hotel/Hotel";
 import List from "./pages/list/List";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
+  const { user } = useContext(AuthContext);
+
   return (
     <BrowserRouter>
       <ScrollToTopOnNavigate />
@@ -15,8 +19,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/hotels" element={<List />} />
         <Route path="/hotels/:id" element={<Hotel />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login isAuthenticated={user} />} />
+        <Route path="/register" element={<Register isAuthenticated={user} />} />
       </Routes>
     </BrowserRouter>
   );

@@ -60,6 +60,20 @@ exports.updateRoom = async (req, res, next) => {
     next(error);
   }
 };
+// Update roomAvailability
+exports.updateRoomAvailability = async (req, res, next) => {
+  try {
+    // Update updateRoomAvailability của roomNumber trong room
+    await Room.updateOne({"roomNumber._id" : req.params.id}, {
+      $push: {
+        "roomNumber.$.unavailableDates": req.body.dates
+      }
+    })
+    res.status(200).json("Room status has been updated.");
+  } catch (error) {
+    next(error);
+  }
+};
 
 // Delete room
 exports.deleteRoom = async (req, res, next) => {

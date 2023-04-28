@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import Footer from "../../components/footer/Footer";
 import Navbar from "../../components/navbar/Navbar";
 import { AuthContext } from "../../context/AuthContext";
 import styles from "./Login.module.css";
 
-const Login = () => {
+const Login = ({ isAuthenticated }) => {
   const [credentials, setCredentials] = useState({
     username: undefined,
     password: undefined,
@@ -16,6 +16,7 @@ const Login = () => {
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
+
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -32,6 +33,10 @@ const Login = () => {
       dispatch({ type: "LOGIN_FAILURE", payload: error.response.data });
     }
   };
+  if (isAuthenticated) {
+    // Nếu isAuthenticated = true, chuyển hướng đến trang home
+    return <Navigate to="/" />;
+  }
 
   return (
     <React.Fragment>

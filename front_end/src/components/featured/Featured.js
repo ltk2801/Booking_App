@@ -9,10 +9,11 @@ const Featured = () => {
     "http://localhost:8800/api/v1/hotels/countByCity?cities=Thành phố Hồ Chí Minh,Hà Nội,Đà Nẵng,Vũng Tàu,Đà Lạt"
   );
 
-  const date = [
+  const dates = [
     {
       startDate: new Date(),
       endDate: new Date(),
+      key: "selection",
     },
   ];
   const options = {
@@ -25,7 +26,7 @@ const Featured = () => {
 
   const tpHcmSearch = (des) => {
     const destination = des;
-    navigate("/hotels", { state: { destination, date, options } });
+    navigate("/hotels", { state: { destination, dates, options } });
   };
 
   return (

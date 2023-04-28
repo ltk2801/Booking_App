@@ -3,39 +3,39 @@ import Footer from "../../components/footer/Footer";
 import Navbar from "../../components/navbar/Navbar";
 import styles from "./Register.module.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
-const Register = () => {
+const Register = ({ isAuthenticated }) => {
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
   const emailRef = useRef(null);
 
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      setLoading(true);
-      const response = await axios.post(
-        "http://localhost:8800/api/v1/auth/register",
-        {
-          username: usernameRef.current.value,
-          email: emailRef.current.value,
-          password: passwordRef.current.value,
-        }
-      );
+      await axios.post("http://localhost:8800/api/v1/auth/register", {
+        username: usernameRef.current.value,
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      });
       navigate("/login", {
         state: { message: "Đăng ký thành công ! Hãy thử đăng nhập ngay" },
       });
-      setLoading(false);
     } catch (error) {
-      setLoading(false);
       setError(error.response.data.message);
     }
   };
+
+  if (isAuthenticated) {
+    // Nếu isAuthenticated = true, chuyển hướng đến trang home
+    return <Navigate to="/" />;
+  }
+
   return (
     <React.Fragment>
       <Navbar type={"login_register"} />
